@@ -1,12 +1,19 @@
 package bitshow
 
-trait Converter extends (Array[Byte] => Array[Byte])
+trait Converter extends (Array[Byte] => Array[Byte]) {
+  /** Some nice display name for your converter */
+  def name: String
+}
 
 object Coverters {
-  def names: Iterable[String] = all.keys
-  private val all =  Map(
-    "Identity Renderer" -> OneRenderer,
-    "Identity Magic" -> OneMagic
-  )
-  def apply(named: String): Option[Converter] = all.get(named)
+  def names: Iterable[String] = mapped.keys
+  private val converterList =
+    OneRenderer :: 
+    OneMagic ::
+    Nil
+  private val mapped =
+    (Map.empty[String, Converter] /: converterList) { (map, conv) =>
+      map + (conv.name -> conv)
+    }
+  def apply(named: String): Option[Converter] = mapped.get(named)
 }
