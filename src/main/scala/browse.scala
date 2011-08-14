@@ -5,7 +5,7 @@ import unfiltered.response._
 
 import org.clapper.avsl.Logger
 
-/** unfiltered plan */
+/** Browser front end, serves the page and handles multipart uploads */
 object Browse extends unfiltered.filter.Plan {
   val logger = Logger(getClass)
 
@@ -14,13 +14,13 @@ object Browse extends unfiltered.filter.Plan {
       logger.debug("GET %s" format p)
       Ok ~> view(<p> bitshow </p>)
   }
-  def palindrome(s: String) = s.toLowerCase.reverse == s.toLowerCase
   def view(body: scala.xml.NodeSeq) = {
     Html(
      <html>
       <head>
         <title>bitshow</title>
         <link rel="stylesheet" type="text/css" href="/assets/css/app.css"/>
+        <script src="/assets/js/jquery-1.6.2.min.js" />
       </head>
       <body>
        <div id="container">
