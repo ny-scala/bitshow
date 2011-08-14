@@ -3,7 +3,8 @@ package bitshow
 trait Converter extends (Array[Byte] => Array[Byte])
 
 object Coverters {
-  val all =  Map(
+  def names: Iterable[String] = all.keys
+  private val all =  Map(
     "Identity Renderer" -> OneRenderer,
     "Identity Magic" -> OneMagic
   )
