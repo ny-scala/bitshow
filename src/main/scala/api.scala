@@ -9,7 +9,7 @@ import org.clapper.avsl.Logger
 
 /** This filter should handle conversions requested
  * by the client page, serve listings of available
- * images, and serve the images themselves */
+ * images and converters, and serve the images themselves */
 object API extends unfiltered.filter.Plan {
   val logger = Logger(getClass)
 
