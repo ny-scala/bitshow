@@ -5,14 +5,16 @@ trait Storage {
   def put(bytes: Array[Byte]): String
 }
 
-object VectorStore {
+object DefaultStore extends VectorStore
+
+trait VectorStore { self =>
   private var vector = Vector.empty[Array[Byte]]
-  def get(id: String) = VectorStore.synchronized {
+  def get(id: String) = self.synchronized {
     import scala.util.control.Exception._
     allCatch.opt { vector(id.toInt) }
   }
   def put(bytes: Array[Byte]) =
-    VectorStore.synchronized {
+    self.synchronized {
       vector = vector :+ bytes
       (vector.length - 1).toString
     }
