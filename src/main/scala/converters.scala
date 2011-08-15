@@ -5,7 +5,7 @@ trait Converter extends (Array[Byte] => Array[Byte]) {
   def name: String
 }
 
-object Coverters {
+object Converters {
   def names: Iterable[String] = mapped.keys
   private val converterList =
     OneRenderer :: 
