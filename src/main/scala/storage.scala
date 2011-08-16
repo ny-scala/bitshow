@@ -9,7 +9,7 @@ trait Storage {
 
 object DefaultStore extends VectorStore
 
-trait VectorStore { self =>
+trait VectorStore extends Storage { self =>
   private var vector = Vector.empty[Item]
   def get(id: String) = self.synchronized {
     import scala.util.control.Exception._
