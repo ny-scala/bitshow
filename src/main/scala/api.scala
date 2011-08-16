@@ -11,6 +11,7 @@ import org.clapper.avsl.Logger
  * by the client page, serve listings of available
  * images and converters, and serve the images themselves */
 object API extends unfiltered.filter.Plan {
+  import LazyJson._
   val logger = Logger(getClass)
 
   def intent = {
