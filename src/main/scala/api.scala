@@ -17,6 +17,14 @@ object API extends unfiltered.filter.Plan {
     case POST(Path("/convert")) =>
       logger.debug("Convert request")
       Json(("hello" -> "world") ~ ("id" -> "something") )
+      
+    // TODO list images
+    
+    // TODO list converters
+    
+    case GET(Path(Seg("images" :: id :: Nil))) =>
+      DefaultStore.get(id).map(i => ContentType(i.contentType) ~> ResponseBytes(i.bytes)).getOrElse(NotFound)
+      
     case GET(Path("/test")) =>
       val bytes = org.apache.commons.io.IOUtils.toByteArray(
         getClass.getResource("/www/img/ny-scala.png").openStream
