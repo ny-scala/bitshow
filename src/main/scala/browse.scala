@@ -10,9 +10,9 @@ object Browse extends unfiltered.filter.Plan {
   val logger = Logger(getClass)
 
   def intent = {
-    case GET(Path(p)) =>
-      logger.debug("GET %s" format p)
-      Ok ~> view(<p> bitshow </p>)
+    case GET(Path("/")) =>
+      logger.debug("GET /")
+      Ok ~> view(<p> bitshow </p> <img src="/test"/>)
   }
   def view(body: scala.xml.NodeSeq) = {
     Html(

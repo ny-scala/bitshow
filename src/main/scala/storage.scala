@@ -1,19 +1,21 @@
 package bitshow
 
+case class Item(contentType: String, bytes: Array[Byte])
+
 trait Storage {
-  def get(id: String): Option[Array[Byte]]
-  def put(bytes: Array[Byte]): String
+  def get(id: String): Option[Item]
+  def put(item: Item): String
 }
 
 object DefaultStore extends VectorStore
 
 trait VectorStore { self =>
-  private var vector = Vector.empty[Array[Byte]]
+  private var vector = Vector.empty[Item]
   def get(id: String) = self.synchronized {
     import scala.util.control.Exception._
     allCatch.opt { vector(id.toInt) }
   }
-  def put(bytes: Array[Byte]) =
+  def put(bytes: Item) =
     self.synchronized {
       vector = vector :+ bytes
       (vector.length - 1).toString

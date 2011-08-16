@@ -1,6 +1,6 @@
 package bitshow
 
-trait Converter extends (Array[Byte] => Array[Byte]) {
+trait Converter extends (Item => Item) {
   /** Some nice display name for your converter */
   def name: String
 }
