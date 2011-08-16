@@ -12,7 +12,8 @@ libraryDependencies ++= Seq(
    "net.databinder" %% "unfiltered-json" % "0.4.1",
    "net.databinder" %% "unfiltered-uploads" % "0.4.1",
    "org.clapper" %% "avsl" % "0.3.3",
-   "org.processing" % "core" % "1.1"
+   "org.processing" % "core" % "1.1",
+   "com.mongodb.casbah" %% "casbah" % "2.1.5-1"
 )
 
 resolvers ++= Seq(
