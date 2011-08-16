@@ -13,10 +13,11 @@ libraryDependencies ++= Seq(
    "net.databinder" %% "unfiltered-uploads" % "0.4.1",
    "org.clapper" %% "avsl" % "0.3.3",
    "org.processing" % "core" % "1.1",
-   "com.mongodb.casbah" %% "casbah" % "2.1.5-1"
+   "com.mongodb.casbah" %% "casbah" % "2.2.0-SNAPSHOT"
 )
 
 resolvers ++= Seq(
   "java m2" at "http://download.java.net/maven/2",
-  "tech" at "http://databinder.net/repo/"
+  "tech" at "http://databinder.net/repo/",
+  "scala snapshots" at "http://scala-tools.org/repo-snapshots"
 )
