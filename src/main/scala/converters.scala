@@ -11,6 +11,7 @@ object Converters {
     OneRenderer :: 
     OneMagic ::
     FlipRenderer ::
+    FlipMagick ::
     Nil
   private val mapped =
     (Map.empty[String, Converter] /: converterList) { (map, conv) =>
