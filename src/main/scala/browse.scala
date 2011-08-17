@@ -48,18 +48,10 @@ object Browse extends unfiltered.filter.Plan {
      case GET(Path(Seg("previews" :: id :: Nil))) =>
         DefaultStore.get(id) match {
           case Some(item) => view(<p>
-             preview
-             <img class="bits" id={id} src={"/files/%s" format id}/>
+             spice it up or <a href="/">upload another</a>
+             <img class="bits" id={id} src={"/images/%s" format id}/>
               <select id="converters"/>
             </p>)("previews")
-          case _ => NotFound
-        }
-    
-     case GET(Path(Seg("files" :: id :: Nil))) =>
-        DefaultStore.get(id) match {
-          case Some(item) =>
-            ContentType(item.contentType) ~> ContentLength(item.bytes.size.toString) ~>
-              ResponseBytes(item.bytes)
           case _ => NotFound
         }
   }

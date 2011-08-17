@@ -5,6 +5,7 @@ body, input {
     color:#333;
     line-height:1.5em;
 }
+form { margin:1em auto; display:block; }
 img {
   max-width:800px;
   display:block;

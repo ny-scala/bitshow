@@ -16,7 +16,7 @@ object FlipRenderer extends Converter {
         def mimeToImageIOType(ty: String) = ty match {
           case "image/png" => "png"
           case "image/gif" => "gif"
-          case "image/jpg" => "jpg"
+          case "image/jpeg" => "jpg"
           case _ => throw new UnsupportedOperationException(ty)
         }
 
