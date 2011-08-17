@@ -32,7 +32,13 @@ trait MongoGridFSStorage extends Storage { self =>
   import com.mongodb.casbah.Imports._
   import com.mongodb.casbah.gridfs.Imports._
 
-  lazy val mongo = MongoConnection()("bitshow")
+  lazy val mongo = {
+    val db = MongoConnection("staff.mongohq.com", 10004)("bitshow")
+    if (db.authenticate("scalany", "N8HANISMYHERO")) {
+      db
+    } else throw new IllegalArgumentException("DEATH AND DESTRUCTION! PASSWORD FAILURE!")
+  }
+
 
   lazy val gridfs = GridFS(mongo, "images")
 
