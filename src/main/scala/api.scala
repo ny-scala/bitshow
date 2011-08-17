@@ -22,6 +22,7 @@ object API extends unfiltered.filter.Plan {
     // TODO list images
     
     // TODO list converters
+    case GET(Path("/converters")) => Json(Converters.names.toJson)
     
     case GET(Path(Seg("images" :: id :: Nil))) =>
       DefaultStore.get(id).map(i => ContentType(i.contentType) ~> ResponseBytes(i.bytes)).getOrElse(NotFound)
