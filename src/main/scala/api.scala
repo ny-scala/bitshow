@@ -7,15 +7,20 @@ import net.liftweb.json.JsonDSL._
 
 import org.clapper.avsl.Logger
 
+object Decode {
+  def unapply(s: String) = Some()
+}
+
 /** This filter should handle conversions requested
  * by the client page, serve listings of available
  * images and converters, and serve the images themselves */
 object API extends unfiltered.filter.Plan {
   val logger = Logger(getClass)
-
+  
   def intent = {
     case POST(Path(Seg("convert" :: id :: converter :: Nil))) =>
-      val optI = Converters(converter).flatMap(DefaultStore.get(id).map)
+      val c = java.net.URLDecoder.decode(converter, "UTF-8")
+      val optI = Converters(c).flatMap(DefaultStore.get(id).map)
       optI.map(DefaultStore.put).map(id => Json("id" -> id)).getOrElse(NotFound)
     
     case GET(Path("/converters")) => Json(Converters.names)
