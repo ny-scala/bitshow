@@ -26,7 +26,7 @@ class MagickConverter(override val name: String, command: String) extends Conver
 
     process(input, output)
 
-    Item(item.contentType, output.toByteArray)
+    Item("image/jpeg", output.toByteArray)
   }
 
   /**
@@ -43,15 +43,24 @@ class MagickConverter(override val name: String, command: String) extends Conver
 }
 
 object MagickConverter {
-  // The default path is /usr/local/bin. You can override this with the
-  // magick.path system property.
-  val MagickPath = System.getProperty("magick.path", "/usr/local/bin")
+  private val magickPath = "magick.path"
+
+  /**
+   * The default path is /usr/local/bin. You can override this with the
+   * magick.path system property.
+   */
+  val MagickPath = System.getProperty(magickPath, "/usr/local/bin")
+
+  /**
+   * Override the magick.path
+   */
+  def setMagickPath(path: String): Unit = System.setProperty(magickPath, path)
 }
 
 /**
  * An example MagickConverter that flips an image.
  */
-object MagickFlipConverter extends MagickConverter("flip", "convert -flip")
+object FlipMagick extends MagickConverter("flip", "convert -flip")
 
 object MagickVignetteConverter extends MagickConverter("vignette", "convert -vignette 3")
 
