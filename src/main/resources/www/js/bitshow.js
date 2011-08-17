@@ -4,21 +4,15 @@
       var api = 'http://' + window.location.host;
       return {
         converters: function(fn) {
-          $.getJSON(api + '/converters', function(converters){
-            console.log(converters);
-            fn(converters);
-          })
+          $.getJSON(api + '/converters', fn);
         },
         convert: function(converter, id, fn) {
-          var uri = api + '/convert/' + id + "/" + converter;
-          $.post(uri, function(cid) {
-            console.log(cid);
-            fn(cid);
-          });
+          $.post(api + '/convert/' + id + "/" + converter, fn);
         },
         images: function(fn) {
           $.getJSON(api + "/images", fn);
         }
+
       };
     });
   });
