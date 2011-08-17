@@ -53,6 +53,10 @@ object MagickConverter {
  */
 object MagickFlipConverter extends MagickConverter("flip", "convert -flip")
 
+object MagickVignetteConverter extends MagickConverter("vignette", "convert -vignette 3")
+
+object MagickMonochromeConverter extends MagickConverter("monochrome", "convert -monochrome")
+
 /**
  * This is just a test harness for using images in the filesystem so we
  * don't have to wait for other teams to do file uploading.
