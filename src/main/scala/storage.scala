@@ -8,6 +8,7 @@ case class Item(contentType: String, bytes: Array[Byte])
 trait Storage {
   def get(id: String): Option[Item]
   def put(item: Item): String
+  def list: Traversable[String]
 }
 
 object DefaultStore extends MongoGridFSStorage
@@ -23,6 +24,8 @@ trait VectorStore extends Storage { self =>
       vector = vector :+ bytes
       (vector.length - 1).toString
     }
+
+  def list = (0 to vector.length).map { _.toString }
 }
 
 trait MongoGridFSStorage extends Storage { self =>
@@ -38,6 +41,7 @@ trait MongoGridFSStorage extends Storage { self =>
     allCatch.opt { new ObjectId(id) } match {
       case Some(oid: ObjectId) => gridfs.findOne(oid) match {
         case Some(file) => allCatch.opt {
+          println("Retrieved file for ID '%s' from MongoDB GridFS (%s)".format(oid, file))
           val bos = new ByteArrayOutputStream(file.length.toInt)
           file.writeTo(bos)
           val bytes = bos.toByteArray
@@ -89,6 +93,8 @@ trait MongoGridFSStorage extends Storage { self =>
   }
 
 
+  def list = gridfs map { fh => fh._id.getOrElse("<INVALID ID>").toString }
+
   /** Quick demonstration of pattern matching for class extraction from a less specific type */
 /*  def put(item: AnyRef) = item match {
     case bytes: Array[Byte] =>
@@ -101,5 +107,5 @@ trait MongoGridFSStorage extends Storage { self =>
       (" I don't know what the hell a class of type '%s' is " format default)
 
   }*/
-}
 
+}
