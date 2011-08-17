@@ -5,6 +5,11 @@ body, input {
     color:#333;
     line-height:1.5em;
 }
+img {
+  max-width:800px;
+  display:block;
+  margin:1em auto;
+}
 input[type="text"] { width: 100%; margin-bottom:.5em; }
 input[type="submit"] { font-size:36px; }
 #container {
