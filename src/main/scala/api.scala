@@ -7,10 +7,6 @@ import net.liftweb.json.JsonDSL._
 
 import org.clapper.avsl.Logger
 
-object Decode {
-  def unapply(s: String) = Some()
-}
-
 /** This filter should handle conversions requested
  * by the client page, serve listings of available
  * images and converters, and serve the images themselves */
