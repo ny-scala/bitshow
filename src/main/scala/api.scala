@@ -14,9 +14,9 @@ object API extends unfiltered.filter.Plan {
   val logger = Logger(getClass)
 
   def intent = {
-    case POST(Path("/convert")) =>
-      logger.debug("Convert request")
-      Json(("hello" -> "world") ~ ("id" -> "something") )
+    case POST(Path(Seg("convert" :: id :: converter :: Nil))) =>
+      val optI = Converters(converter).flatMap(DefaultStore.get(id).map)
+      optI.map(DefaultStore.put).map(id => Json("id" -> id)).getOrElse(NotFound)
     
     case GET(Path("/converters")) => Json(Converters.names)
     
