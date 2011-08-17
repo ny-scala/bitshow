@@ -39,7 +39,6 @@ trait MongoGridFSStorage extends Storage { self =>
     } else throw new IllegalArgumentException("DEATH AND DESTRUCTION! PASSWORD FAILURE!")
   }
 
-
   lazy val gridfs = GridFS(mongo, "images")
 
   def get(id: String): Option[Item] = {

@@ -1,22 +1,23 @@
 (function($){
   $(function(){
     window.bitshow = (function() {
-      var api = window.location.host;
-      console.log(api);
+      var api = 'http://' + window.location.host;
       return {
         converters: function(fn) {
-          $.getJSON('http://' + api + '/converters', function(converters){
+          $.getJSON(api + '/converters', function(converters){
             console.log(converters);
             fn(converters);
           })
         },
         convert: function(converter, id, fn) {
-          var uri = 'http://' + api + '/convert/' + id + "/" + converter;
-          console.log(uri);
+          var uri = api + '/convert/' + id + "/" + converter;
           $.post(uri, function(cid) {
             console.log(cid);
             fn(cid);
           });
+        },
+        images: function(fn) {
+          $.getJSON(api + "/images", fn);
         }
       };
     });
