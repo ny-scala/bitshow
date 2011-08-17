@@ -26,7 +26,7 @@ class MagickConverter(override val name: String, command: String) extends Conver
 
     process(input, output)
 
-    Item(item.contentType, output.toByteArray)
+    Item("image/jpeg", output.toByteArray)
   }
 
   /**
@@ -51,7 +51,7 @@ object MagickConverter {
 /**
  * An example MagickConverter that flips an image.
  */
-object MagickFlipConverter extends MagickConverter("flip", "convert -flip")
+object FlipMagick extends MagickConverter("flip", "convert -flip")
 
 /**
  * This is just a test harness for using images in the filesystem so we
