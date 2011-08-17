@@ -32,7 +32,7 @@ object Browse extends unfiltered.filter.Plan {
       Ok ~> view(<p><form enctype="multipart/form-data" action="/up" method="POST">
         <input type="file" name="f" />
         <input type="submit" value="post"/>
-       </form></p>)
+       </form></p>)("index")
        
     case POST(Path("/up") & MultiPart(req)) =>
        MultiPartParams.Streamed(req).files("f") match {
@@ -47,7 +47,11 @@ object Browse extends unfiltered.filter.Plan {
        
      case GET(Path(Seg("previews" :: id :: Nil))) =>
         DefaultStore.get(id) match {
-          case Some(item) => view(<p><img src={"/files/%s" format id}/></p>)
+          case Some(item) => view(<p>
+             preview
+             <img class="bits" id={id} src={"/files/%s" format id}/>
+              <select id="converters"/>
+            </p>)("previews")
           case _ => NotFound
         }
     
@@ -58,10 +62,9 @@ object Browse extends unfiltered.filter.Plan {
               ResponseBytes(item.bytes)
           case _ => NotFound
         }
-    
   }
 
-  def view(body: scala.xml.NodeSeq) = {
+  def view(body: scala.xml.NodeSeq)(js: String*) = {
     Html(
      <html>
       <head>
@@ -73,6 +76,8 @@ object Browse extends unfiltered.filter.Plan {
        <div id="container">
        { body }
        </div>
+       <script type="text/javascript" src="/assets/js/bitshow.js"/>
+       { js.map { j => <script type="text/javascript" src={"/assets/js/%s.js".format(j) }/>} }
      </body>
     </html>
    )
